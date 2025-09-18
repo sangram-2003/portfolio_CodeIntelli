@@ -1,57 +1,56 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// create actions
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
+// Create project
 export const create = createAsyncThunk(
   "create_project",
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.post("http://localhost:4000/projects", data);
-      return res.data; // axios automatically parses the response as JSON
+      const res = await axios.post(`${BACKEND_URL}/projects`, data);
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message || error.message); // handle error properly
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
 
-// read data
+// Get all projects
 export const getAll = createAsyncThunk(
   "getAll_project",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get("http://localhost:4000/projects");
-      return res.data; // axios automatically parses the response as JSON
+      const res = await axios.get(`${BACKEND_URL}/projects`);
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message || error.message); // handle error properly
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
 
+// Delete project
 export const deleteone = createAsyncThunk(
   "deleteone_project",
   async (id, { rejectWithValue }) => {
-    console.log("api calling" , id);
     try {
-      const res = await axios.delete(`http://localhost:4000/projects/${id}`);
-      return res.data; // axios automatically parses the response as JSON
+      const res = await axios.delete(`${BACKEND_URL}/projects/${id}`);
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message || error.message); // handle error properly
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
 
-// update
+// Update project
 export const update = createAsyncThunk(
   "update_project",
   async (data, { rejectWithValue }) => {
-
-    
     try {
-      
-      const res = await axios.patch(`http://localhost:4000/projects/${data.id}`, data);
-      return res.data; // axios automatically parses the response as JSON
+      const res = await axios.patch(`${BACKEND_URL}/projects/${data.id}`, data);
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message || error.message); // handle error properly
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
@@ -65,7 +64,7 @@ const projectDetails = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Create user
+      // Create
       .addCase(create.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -73,15 +72,13 @@ const projectDetails = createSlice({
       .addCase(create.fulfilled, (state, action) => {
         state.loading = false;
         state.projects.push(action.payload);
-        console.log("User created successfully");
       })
       .addCase(create.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || action.error.message; // Set error message
-        console.log(state.error);
+        state.error = action.payload;
       })
-      
-      // Show user
+
+      // Get all
       .addCase(getAll.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -92,53 +89,34 @@ const projectDetails = createSlice({
       })
       .addCase(getAll.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || action.error.message; // Set error message
-        console.log(state.error);
+        state.error = action.payload;
       })
-      
-      // Delete user
-      .addCase(deleteone.pending, (state) => {
-        state.loading = true;
-        state.error = null;
 
-      })
+      // Delete
       .addCase(deleteone.fulfilled, (state, action) => {
         state.loading = false;
-        console.log("full" , action);
         const id = action.meta.arg;
-        console.log(id);
-        if (id) {
-          state.projects = state.projects.filter((item) => item._id !== id);
-        }
-        console.log("User deleted successfully");
+        state.projects = state.projects.filter((item) => item._id !== id);
       })
       .addCase(deleteone.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || action.error.message; // Set error message
-        console.log(state.error);
+        state.error = action.payload;
       })
 
-      // Update user
-      .addCase(update.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      // Update
       .addCase(update.fulfilled, (state, action) => {
         state.loading = false;
         const updated = action.payload;
         state.projects = state.projects.map((item) =>
           item._id === updated._id ? updated : item
         );
-        console.log("User updated successfully");
       })
       .addCase(update.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || action.error.message; // Set error message
-        console.log(state.error);
+        state.error = action.payload;
       });
   },
 });
 
 export const projectDetailsActions = projectDetails.actions;
 export default projectDetails;
-
