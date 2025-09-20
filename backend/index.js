@@ -4,7 +4,8 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
-import cloudinary from "cloudinary";
+import { v2 as cloudinary } from "cloudinary";
+
 
 // ✅ Load environment variables
 dotenv.config();
@@ -19,9 +20,9 @@ const app = express();
 
 // ✅ Cloudinary setup
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET,
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 // ✅ CORS setup
