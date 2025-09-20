@@ -27,7 +27,7 @@ cloudinary.v2.config({
 // ✅ CORS setup
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || "http://localhost:3000", // change to your frontend URL
+    origin: process.env.CORS_ORIGIN , // change to your frontend URL
     credentials: true,
   })
 );
