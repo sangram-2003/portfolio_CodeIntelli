@@ -18,7 +18,7 @@ import dsaRouter from "./routes/dsa.js";
 const app = express();
 
 // ✅ Cloudinary setup
-cloudinary.v2.config({
+cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET,
@@ -27,7 +27,7 @@ cloudinary.v2.config({
 // ✅ CORS setup
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN , // change to your frontend URL
+    origin: "http://localhost:5173" , // change to your frontend URL
     credentials: true,
   })
 );
@@ -69,14 +69,7 @@ app.all("*", (req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
 
-// ✅ Global error handler
-app.use((err, req, res, next) => {
-  console.error("🔥 Error:", err.stack || err.message);
-  res.status(500).json({
-    message: "Internal Server Error",
-    error: err.message,
-  });
-});
+
 
 // ✅ Start server
 const PORT = process.env.PORT || 4000;
