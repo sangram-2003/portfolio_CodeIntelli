@@ -3,20 +3,33 @@ import Project from "../model/projects.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 
+import Project from "../models/project.js";   // make sure correct path
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
+
 export const create = async (req, res) => {
   try {
     const { title, category, description, key_features, github, privew } = req.body;
 
-    let imageUrl = null;
-    
-    const imageLocalPath = req.file?.path
-   
-    if (imageLocalPath) {
-      
-      imageUrl = await uploadOnCloudinary(imageLocalPath); // upload to Cloudinary
-      console.log(imageUrl)
+    // Validation
+    if (!title || !category || !description) {
+      return res.status(400).json({ error: "Title, category, and description are required." });
     }
 
+    let imageUrl = null;
+
+    // Check if multer uploaded a file
+    if (req.file?.path) {
+      try {
+        imageUrl = await uploadOnCloudinary(req.file.path); // upload to Cloudinary
+        if (!imageUrl) {
+          return res.status(500).json({ error: "Image upload failed." });
+        }
+      } catch (err) {
+        return res.status(500).json({ error: "Cloudinary error: " + err.message });
+      }
+    }
+
+    // Create project
     const project = await Project.create({
       title,
       category,
@@ -24,12 +37,13 @@ export const create = async (req, res) => {
       key_features,
       github,
       privew,
-      image: imageUrl, // store Cloudinary URL
+      image: imageUrl, // Cloudinary URL
     });
 
-    res.status(201).json(project);
+    return res.status(201).json(project);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Create project error:", err);
+    return res.status(500).json({ error: err.message });
   }
 };
 
