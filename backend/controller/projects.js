@@ -3,9 +3,6 @@ import Project from "../model/projects.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 
-import Project from "../models/project.js";   // make sure correct path
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
-
 export const create = async (req, res) => {
   try {
     const { title, category, description, key_features, github, privew } = req.body;
