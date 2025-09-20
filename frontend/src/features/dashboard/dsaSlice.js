@@ -1,15 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 // create actions
 export const create = createAsyncThunk(
   "create_dsa",
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.post("http://localhost:4000/dsa", data);
-      return res.data; // axios automatically parses the response as JSON
+      const res = await axios.post(`${BACKEND_URL}/dsa`, data);
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message || error.message); // handle error properly
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
@@ -19,10 +21,10 @@ export const getAll = createAsyncThunk(
   "getAll_dsa",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get("http://localhost:4000/dsa");
-      return res.data; // axios automatically parses the response as JSON
+      const res = await axios.get(`${BACKEND_URL}/dsa`);
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message || error.message); // handle error properly
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
@@ -31,10 +33,10 @@ export const deleteone = createAsyncThunk(
   "deleteone_dsa",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.delete(`http://localhost:4000/dsa/${id}`);
-      return res.data; // axios automatically parses the response as JSON
+      const res = await axios.delete(`${BACKEND_URL}/dsa/${id}`);
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message || error.message); // handle error properly
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
@@ -44,13 +46,10 @@ export const update = createAsyncThunk(
   "update_dsa",
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.patch(
-        `http://localhost:4000/dsa/${data.id}`,
-        data
-      );
-      return res.data; // axios automatically parses the response as JSON
+      const res = await axios.patch(`${BACKEND_URL}/dsa/${data.id}`, data);
+      return res.data;
     } catch (error) {
-      return rejectWithValue(error.response.data.message || error.message); // handle error properly
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
@@ -64,7 +63,7 @@ const dsaDetails = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Create user
+      // Create
       .addCase(create.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -72,15 +71,13 @@ const dsaDetails = createSlice({
       .addCase(create.fulfilled, (state, action) => {
         state.loading = false;
         state.dsas.push(action.payload);
-        console.log("User created successfully");
       })
       .addCase(create.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || action.error.message; // Set error message
-        console.log(state.error);
+        state.error = action.payload;
       })
 
-      // Show user
+      // Get all
       .addCase(getAll.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -91,48 +88,31 @@ const dsaDetails = createSlice({
       })
       .addCase(getAll.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || action.error.message; // Set error message
-        console.log(state.error);
+        state.error = action.payload;
       })
 
-      // Delete user
-      .addCase(deleteone.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      // Delete
       .addCase(deleteone.fulfilled, (state, action) => {
         state.loading = false;
-        console.log("full", action);
         const id = action.meta.arg;
-        console.log(id);
-        if (id) {
-          state.dsas = state.dsas.filter((item) => item._id !== id);
-        }
-        console.log("User deleted successfully");
+        state.dsas = state.dsas.filter((item) => item._id !== id);
       })
       .addCase(deleteone.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || action.error.message; // Set error message
-        console.log(state.error);
+        state.error = action.payload;
       })
 
-      // Update user
-      .addCase(update.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
+      // Update
       .addCase(update.fulfilled, (state, action) => {
         state.loading = false;
         const updated = action.payload;
         state.dsas = state.dsas.map((item) =>
           item._id === updated._id ? updated : item
         );
-        console.log("User updated successfully");
       })
       .addCase(update.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || action.error.message; // Set error message
-        console.log(state.error);
+        state.error = action.payload;
       });
   },
 });
