@@ -7,26 +7,13 @@ export const create = async (req, res) => {
   try {
     const { title, category, description, key_features, github, privew } = req.body;
 
-    // Validation
-    if (!title || !category || !description) {
-      return res.status(400).json({ error: "Title, category, and description are required." });
-    }
-
     let imageUrl = null;
 
-    // Check if multer uploaded a file
-    if (req.file?.path) {
-      try {
-        imageUrl = await uploadOnCloudinary(req.file.path); // upload to Cloudinary
-        if (!imageUrl) {
-          return res.status(500).json({ error: "Image upload failed." });
-        }
-      } catch (err) {
-        return res.status(500).json({ error: "Cloudinary error: " + err.message });
-      }
+    if (req.file) {
+      imageUrl = await uploadOnCloudinary(req.file.buffer); // ✅ buffer instead of path
+      console.log("Uploaded Image:", imageUrl);
     }
 
-    // Create project
     const project = await Project.create({
       title,
       category,
@@ -34,13 +21,12 @@ export const create = async (req, res) => {
       key_features,
       github,
       privew,
-      image: imageUrl, // Cloudinary URL
+      image: imageUrl,
     });
 
-    return res.status(201).json(project);
+    res.status(201).json(project);
   } catch (err) {
-    console.error("Create project error:", err);
-    return res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 };
 

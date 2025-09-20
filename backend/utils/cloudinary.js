@@ -1,42 +1,30 @@
-import {v2 as cloudinary} from "cloudinary"
-import fs from "fs"
+// utils/cloudinary.js
+import { v2 as cloudinary } from "cloudinary";
 import dotenv from "dotenv";
 dotenv.config();
 
-
-cloudinary.config({ 
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
-  api_key: process.env.CLOUDINARY_API_KEY, 
-  api_secret: process.env.CLOUDINARY_API_SECRET 
-});
-console.log(process.env.MONGODB_URL ,"dsd")
-console.log("Cloudinary Config:", {
+cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY ? "Loaded ✅" : "Missing ❌",
-  api_secret: process.env.CLOUDINARY_API_SECRET ? "Loaded ✅" : "Missing ❌"
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-const uploadOnCloudinary = async (localFilePath) => {
-  try {
-    if (!localFilePath) return null;
 
-    // upload the file on cloudinary
-    const response = await cloudinary.uploader.upload(localFilePath, {
-      resource_type: "auto",
-    });
+const uploadOnCloudinary = async (fileBuffer) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { resource_type: "auto" },
+      (error, result) => {
+        if (error) {
+          console.error("Cloudinary upload failed:", error);
+          reject(error);
+        } else {
+          resolve(result.secure_url); // ✅ return uploaded file URL
+        }
+      }
+    );
 
-    // delete local file after upload
-    fs.unlinkSync(localFilePath);
-
-    // return only the URL
-    return response.secure_url;  // 👈 fix
-  } catch (error) {
-    if (localFilePath) fs.unlinkSync(localFilePath);
-    console.error("Cloudinary upload failed:", error);
-    return null;
-  }
+    stream.end(fileBuffer); // ✅ upload from buffer
+  });
 };
 
-
-
-
-export {uploadOnCloudinary}
+export { uploadOnCloudinary };
