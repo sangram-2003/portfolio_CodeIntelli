@@ -6,10 +6,10 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import cloudinary from "cloudinary";
 
-// Load environment variables
+// ✅ Load environment variables
 dotenv.config();
 
-// Import routes
+// ✅ Import routes
 import projectRouter from "./routes/projects.js";
 import reviewRouter from "./routes/reviews.js";
 import contactRouter from "./routes/contacts.js";
@@ -17,8 +17,8 @@ import dsaRouter from "./routes/dsa.js";
 
 const app = express();
 
-// ✅ Cloudinary setup (optional, for file uploads)
-cloudinary.config({
+// ✅ Cloudinary setup
+cloudinary.v2.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET,
@@ -27,27 +27,36 @@ cloudinary.config({
 // ✅ CORS setup
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || "*",
+    origin: process.env.CORS_ORIGIN || "http://localhost:3000", // change to your frontend URL
     credentials: true,
   })
 );
 
-// ✅ Parse JSON and URL-encoded form data
+// ✅ Parse JSON and form data
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 
 // ✅ Parse cookies
 app.use(cookieParser());
 
-// ✅ Serve static files (uploads, public assets)
+// ✅ Serve static files
 app.use(express.static("public"));
 
 // ✅ MongoDB connection
-const mongoUri = process.env.MONGODB_URL;
+const mongoUri = process.env.MONGODB_URL || process.env.MONGO_URI;
+
+if (!mongoUri) {
+  console.error("❌ MongoDB URL is missing! Please set MONGODB_URL in .env");
+  process.exit(1);
+}
+
 mongoose
   .connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((conn) => console.log("✅ Database connected:", conn.connection.host))
-  .catch((err) => console.error("❌ DB connection error:", err.message));
+  .catch((err) => {
+    console.error("❌ DB connection error:", err.message);
+    process.exit(1);
+  });
 
 // ✅ Routes
 app.use("/projects", projectRouter);
@@ -55,9 +64,18 @@ app.use("/reviews", reviewRouter);
 app.use("/contacts", contactRouter);
 app.use("/dsa", dsaRouter);
 
-// ✅ Handle 404 routes
+// ✅ 404 handler
 app.all("*", (req, res) => {
   res.status(404).json({ message: "Route not found" });
+});
+
+// ✅ Global error handler
+app.use((err, req, res, next) => {
+  console.error("🔥 Error:", err.stack || err.message);
+  res.status(500).json({
+    message: "Internal Server Error",
+    error: err.message,
+  });
 });
 
 // ✅ Start server
@@ -69,4 +87,5 @@ app.listen(PORT, () => {
 // ✅ Handle unhandled promise rejections
 process.on("unhandledRejection", (err) => {
   console.error("⚠️ Unhandled Rejection:", err.message);
+  process.exit(1);
 });
