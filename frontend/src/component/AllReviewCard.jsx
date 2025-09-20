@@ -40,16 +40,19 @@ const AllReviewCard = () => {
     <>
       <div className="min-h-30 col-span-2 md:col-span-1 row-span-3 grid grid-cols-2 md:grid-cols-2 gap-2">
         {REVIEW_CARD_DATA.map((val, index) => {
-          if (val.title === "Total Projects") {
-            return <ReviewCard key={index} data={val} review={projectLength} />;
+          if (val.title === "Projects") {
+            return <ReviewCard key={index} data={val} review={projectLength || 0} />;
           }
-          if (val.title === "Dsa Solved") {
-            return <ReviewCard key={index} data={val} review={dsaLength} />;
+          if (val.title === "Dsas") {
+            return <ReviewCard key={index} data={val} review={dsaLength || 0} />;
           }
-          if (val.title === "Total Review") {
-            return <ReviewCard key={index} data={val} review={reviewLength} />;
+          if (val.title === "Reviews") {
+            return <ReviewCard key={index} data={val} review={reviewLength || 0} />;
           }
-          return <ReviewCard key={index} data={val} />;
+          if(val.title === "Clients")
+          {
+          return <ReviewCard key={index} data={val} review={reviewLength || 0} />;
+          }
         })}
       </div>
     </>
@@ -58,24 +61,24 @@ const AllReviewCard = () => {
 
 const REVIEW_CARD_DATA = [
   {
-    title: "Total Projects",
+    title: "Projects",
     img: "./project.png",
     bgcolor: "bg-orange-200",
   },
   {
-    title: "Dsa Solved",
+    title: "Dsas",
     reviews: "100",
     img: "./dsa.png",
     bgcolor: "bg-sky-200",
   },
   {
-    title: "Total Client",
+    title: "Clients",
     reviews: "100",
     img: "./client.png",
     bgcolor: "bg-pink-200 ",
   },
   {
-    title: "Total Review",
+    title: "Reviews",
     reviews: "100",
     img: "./review.png",
     bgcolor: "bg-lime-200 ",

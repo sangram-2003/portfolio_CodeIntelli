@@ -4,12 +4,16 @@ import axios from "axios";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-// Create project
+
 export const create = createAsyncThunk(
   "create_project",
   async (data, { rejectWithValue }) => {
     try {
-      const res = await axios.post(`${BACKEND_URL}/projects`, data);
+      const res = await axios.post(`${BACKEND_URL}/projects`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",  // 👈 important
+        },
+      });
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
