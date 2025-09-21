@@ -36,9 +36,10 @@ import { FaGithub } from "react-icons/fa6";
 
 const Hero = () => {
   return (
-    <div className="min-h-[10rem] px-2 rounded-md col-span-2 row-span-1">
-      <div className="w-full h-full">
-        <h6 className="text-[4rem] m-0 tracking-wide font-serif font-semibold">
+    <div className="min-h-[10rem] px-2   rounded-md col-span-2 row-span-1 ">
+     <div className="h-full px-2 flex-col-reverse flex sm:flex-row rounded-md col-span-2 row-span-1 ">
+       <div className="w-full sm:w-1/2 md:w-full h-full  ">
+        <h6 className="md:text-[4rem] sm:text-[3.5rem] text-[3.5rem] m-0 tracking-wide font-serif font-semibold">
           Mern Stack Developer
         </h6>
         <p className="-mt-2 w-4/6 leading-5 font-sans tracking-wide text-gray-800">
@@ -49,6 +50,12 @@ const Hero = () => {
           <IconList />
         </div>
       </div>
+      <div className="sm:ml-2  w-full   flex sm:flex md:hidden h-full sm:w-1/2 justify-center items-center  ">
+        <div className="w-full h-80 sm:h-64 relative ">
+          <img src="./Profile.png" className="   w-full h-full rounded-md bg-cover object-cover "></img>
+          </div>
+          </div>
+     </div>
     </div>
   );
 };

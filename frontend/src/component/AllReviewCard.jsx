@@ -38,7 +38,7 @@ const AllReviewCard = () => {
   let allHomeReviewCardData = [projectLength, dsaLength, reviewLength];
   return (
     <>
-      <div className="min-h-30 col-span-2 md:col-span-1 row-span-3 grid grid-cols-2 md:grid-cols-2 gap-2">
+      <div className="h-64 md:h-80 min-h-30 col-span-2 md:col-span-1 row-span-3 grid grid-cols-2 md:grid-cols-2 gap-2">
         {REVIEW_CARD_DATA.map((val, index) => {
           if (val.title === "Projects") {
             return <ReviewCard key={index} data={val} review={projectLength || 0} />;

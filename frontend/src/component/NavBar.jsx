@@ -81,7 +81,7 @@ const NavBar = () => {
       </div>
 
       <div
-        className={`inset-0 bg-white ${
+        className={`inset-0 z-10 w-screen h-screen  bg-white ${
           navToggle === false ? "hidden" : ""
         } fixed  pointer md:hidden  px-2 `}
       >
@@ -100,8 +100,12 @@ const NavBar = () => {
         <hr className="m-1  border-2 border-gray-700 "></hr>
 
         <div className="w-full px-4 py-4">
-          <img src="./man1.jpg" className="w-full h-[13rem] rounded-md"></img>
-          <div className="w-full px-4 ">
+           <div className="w-full h-64 relative flex justify-center  ">
+               <img src="./Profile.png" className="   w-2/3 h-full rounded-md bg-cover object-cover "></img>
+
+           </div>
+        
+                   <div className="w-full px-4 ">
             <p className="text-xl  font-serif mt-2  text-center font-bold tracking-wide">
               Sangram Bauri
             </p>

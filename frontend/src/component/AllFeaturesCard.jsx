@@ -37,13 +37,17 @@ import { Link } from "react-router-dom";
 const AllFeaturesCard = () => {
   return (
     <>
-      <Link to={"/projects"} className="no-underline">
+    
+      
+        <Link to={"/projects"} className="no-underline">
         <FeaturesCard headline={"All features Projects"} />
       </Link>
 
       <Link to={"/dsa"} className="no-underline">
         <FeaturesCard headline={"All DSA questions"} />
       </Link>
+   
+      
     </>
   );
 };
