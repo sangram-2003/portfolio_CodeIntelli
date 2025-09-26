@@ -47,12 +47,12 @@ const categories = [
           alt="Background"
         /> 
       </div> */}
-      <div className="flex px-2 items-center h-auto justify-between min-h-[3.5rem] col-span-2 row-span-1">
+      <div className="flex relative px-2 items-center h-auto justify-between min-h-[3.5rem] col-span-2 row-span-1">
         <div className="flex-col w-full items-start">
           <h6 className="text-[1.5rem] text-violet-800 font-serif mt-2 font-bold tracking-wide">
             Project List
           </h6>
-          <div className="w-full h-12 flex gap-2 items-center overflow-x-scroll overflow-y-hidden review">
+          <div className="absolute w-full h-12  flex gap-2 items-center overflow-x-scroll overflow-y-hidden review">
             {categories.map((category, index) => (
               <button
                 key={index}
@@ -71,12 +71,12 @@ const categories = [
         </div>
       </div>
       <div className="border-b-2 flex items-center justify-between px-2 col-span-2 row-span-1">
-        <div className="w-full flex justify-center py-4">
-          <div className="w-full grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-auto">
+        <div className="w-full flex justify-center py-4 mt-10 ">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-auto">
             {filterdata.map((project, index) => (
               <div
                 key={index}
-                className="bg-[rgb(121,209,234,0.3)] cursor-pointer  relative group h-auto pb-10 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105"
+                className="bg-[rgb(121,209,234,0.3)]  md:w-full cursor-pointer  relative group h-auto pb-10 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105"
               >
                 <div className="flex items-center">
                   <img

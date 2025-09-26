@@ -50,16 +50,18 @@ const Layout = () => {
           {/* side bar end */}
           {/* main container start */}
           <div
-            className=" min-h-30 md:ml-[315px] px-2 md:px-2  w-full h-full md:col-span-9 grid grid-flow-row-dense  md:grid-cols-2 gap-2 "
+            className="  md:max-w-[48rem] md:min-w-[30rem] lg:max-w-full lg:w-full md:ml-[255px] lg:ml-[315px] px-2 md:px-2 w-full  h-full md:col-span-9 grid grid-flow-row-dense  md:grid-cols-2 gap-2 "
             // style={{
             //   marginLeft: "335px",
             // }}
           >
-            {/*nav bar start*/}
+            
+              {/*nav bar start*/}
             <NavBar />
             {/*nav bar end*/}
 
             <Outlet />
+           
           </div>
         </div>
       </div>

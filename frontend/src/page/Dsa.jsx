@@ -34,7 +34,7 @@ const Dsa = () => {
   return (
     <>
       <div className="flex-col px-2 items-center h-auto justify-between min-h-[3.5rem] col-span-2 row-span-1">
-        <div className="flex w-full space-x-4">
+        <div className="flex-row sm:flex  w-full sm:space-x-4">
           <div className="flex-col">
             <h6 className="text-[1.5rem] text-violet-800 font-serif font-bold tracking-wide">
               DSA Questions List <br />
@@ -90,17 +90,17 @@ const Dsa = () => {
         </div>
       </div>
 
-      <div className="flex items-center px-2 col-span-2 row-span-1">
+      <div className="flex items-center    col-span-2 row-span-1">
         <div className="w-full flex-col py-4 space-y-3">
-          {filteredData.map((dsa, index) => (
+          {/* {filteredData.map((dsa, index) => (
             <div
               key={index}
               className="h-16 w-full bg-sky-100 space-x-4 shadow-md flex items-center py-1 px-2 rounded-md"
             >
               <div className="text-md font-bold h-2/3 w-14 flex items-center">
-                Q {index + 1} .
+                {index + 1} .
               </div>
-              <div className="h-2/3 w-[58rem] flex items-center overflow-hidden">
+              <div className="h-2/3 w-full flex items-center overflow-hidden">
                 <p className="m-0 text-base font-medium">{dsa.question}</p>
               </div>
               <div>
@@ -113,7 +113,24 @@ const Dsa = () => {
                 )}
               </div>
             </div>
-          ))}
+          ))} */}
+
+          <div
+              // key={index}
+              className="h-auto lg:min-h-16 md:h-16 w-full relative bg-sky-100 md:space-x-4 shadow-md flex items-center py-1 px-2 rounded-md"
+            >
+              <div className="text-md font-bold h-auto md:h-2/3 w-8 md:w-8 flex items-center">
+                2.
+              </div>
+              <div className="h-auto md:h-auto   w-10/12 md:w-10/12  lg:w-11/12 flex items-center overflow-hidden">
+                <p className="m-0 text-base font-medium">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae eius ab laudantium minus facere, velit dicta enim ea officiis aspernatur quo doloremque vitae expedita sequi temporibus consectetur nulla molestias quaerat?</p>
+              </div>
+               <div className="right-0 absolute px-2">
+               
+                  <FaAward className="text-xl text-red-600" />
+               
+              </div> 
+            </div>
         </div>
       </div>
     </>

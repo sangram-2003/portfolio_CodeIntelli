@@ -27,7 +27,7 @@ const ProjectCard = ({ project, index }) => {
               <span className="text-base font-bold">Key features :</span>
 
               {
-                <div class="grid grid-cols-2 col-rows-2 w-full col-span-1  ">
+                <div class="grid md:grid-cols-2 col-rows-2 w-full col-span-1  ">
                   {project.keyFeatures.map((val, index) => {
                     return (
                       <>

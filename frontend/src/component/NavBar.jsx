@@ -32,10 +32,11 @@ import { FcManager } from "react-icons/fc";
 <FcManager />;
 import { IoIosContact } from "react-icons/io";
 <IoIosContact />;
-import { BiSupport } from "react-icons/bi";
+import { BiBrain, BiSupport } from "react-icons/bi";
 import { FaGithub } from "react-icons/fa6";
 import { GiManualJuicer } from "react-icons/gi";
 import { HiViewList } from "react-icons/hi";
+import { MdPreview } from "react-icons/md";
 import {
   FaAlignJustify,
   FaArrowRight,
@@ -44,6 +45,7 @@ import {
 } from "react-icons/fa6";
 import Wave from "./Wave";
 import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [navToggle, setNavToggle] = useState(false);
@@ -55,7 +57,7 @@ const NavBar = () => {
   return (
     <>
       <div
-        className={`border-b-2 flex  items-center h-10 justify-between min-h-[3.5rem] px-2 col-span-2 row-span-1 ${
+        className={`border-b-2 w-full flex  items-center h-10 justify-between min-h-[3.5rem] px-2 col-span-2 row-span-1 ${
           navToggle === true ? "hidden" : null
         }`}
       >
@@ -124,37 +126,102 @@ const NavBar = () => {
               </div>
             </div>
             {/* manu */}
-            <div className="flex-col justify-center space-y-1 mt-4 ">
-              <div
-                className="w-full h-8   px-8 hover:bg-[rgb(123,209,236)]/80   hover:scale-105 transition-all  duration-100 rounded-md flex items-center justify-around
-                  
-                  text-lg font-medium"
-              >
-                <TiHome className="text-black text-lg  font-bold" /> Home
-              </div>
-              <div
-                className="w-full h-8 px-8 hover:bg-[rgb(123,209,236)]/80 hover:scale-105 transition-all  duration-100 rounded-md flex items-center justify-around
-                  
-                  text-lg font-medium"
-              >
-                <BsFillGearFill className="text-black text-lg  font-bold" />{" "}
-                Project
-              </div>
-              <div
-                className="w-full h-8 px-8 hover:bg-[rgb(123,209,236)]/80  hover:scale-105 transition-all  duration-100 rounded-md flex items-center justify-around
-                  
-                  text-lg font-medium"
-              >
-                <IoIosContact className="text-black text-lg  font-bold" /> About
-              </div>
-              <div
-                className="w-full h-8 px-8 hover:bg-[rgb(123,209,236)]/80  hover:scale-105 transition-all  duration-100 rounded-md flex items-center justify-around
-                  
-                  text-lg font-medium"
-              >
-                <BiSupport className="text-black text-lg  font-bold" /> Contact
-              </div>
-            </div>
+              <div className="flex-col justify-center space-y-1 mt-3 ">
+                          <Link to="/" 
+                          onClick={() => handleNavToggle(false)} className="no-underline text-black">
+                            <div
+                              className="w-full h-8  gap-8 px-4 hover:bg-[rgb(123,209,236)]/80   hover:scale-105 transition-all  duration-100 rounded-md flex items-center 
+                              
+                              text-lg font-medium"
+                            >
+                              <div className="flex items-center justify-center w-10 h-full">
+                                <TiHome className="text-black text-lg  font-bold" />
+                              </div>
+                              <div className="w-28 h-full text-black text-lg  font-bold flex items-center">
+                                Home
+                              </div>
+                              {/* Home */}
+                            </div>
+                          </Link>
+            
+                          <Link to="/projects"  onClick={() => handleNavToggle(false)} className="no-underline text-black">
+                            <div
+                              className="w-full h-8  gap-8 px-4 hover:bg-[rgb(123,209,236)]/80   hover:scale-105 transition-all  duration-100 rounded-md flex items-center 
+                              
+                              text-lg font-medium"
+                            >
+                              <div className=" flex items-center justify-center w-10 h-full">
+                                <BsFillGearFill className="text-black text-lg  font-bold" />{" "}
+                              </div>
+                              <div className="w-28 h-full text-black text-lg  font-bold flex items-center">
+                                Project
+                              </div>
+                              {/* Home */}
+                            </div>
+                          </Link>
+            
+                          <Link to="/dsa"  onClick={() => handleNavToggle(false)} className="no-underline text-black">
+                            <div
+                              className="w-full h-8  gap-8 px-4 hover:bg-[rgb(123,209,236)]/80   hover:scale-105 transition-all  duration-100 rounded-md flex items-center 
+                              
+                              text-lg font-medium"
+                            >
+                              <div className="flex items-center justify-center w-10 h-full">
+                                <BiBrain className="text-black text-lg  font-bold" />
+                              </div>
+                              <div className="w-28 h-full text-black text-lg  font-bold flex items-center">
+                                Dsa
+                              </div>
+                              {/* Home */}
+                            </div>
+                          </Link>
+            
+                          <Link to="/reviews"  onClick={() => handleNavToggle(false)} className="no-underline text-black">
+                            <div
+                              className="w-full h-8  gap-8 px-4 hover:bg-[rgb(123,209,236)]/80   hover:scale-105 transition-all  duration-100 rounded-md flex items-center 
+                              
+                              text-lg font-medium"
+                            >
+                              <div className=" flex items-center justify-center w-10 h-full">
+                                <MdPreview className="text-black text-lg  font-bold" />{" "}
+                              </div>
+                              <div className="w-28 h-full text-black text-lg  font-bold flex items-center">
+                                Reviews
+                              </div>
+                              {/* Home */}
+                            </div>
+                          </Link>
+                          <Link to="/about"  onClick={() => handleNavToggle(false)} className="no-underline text-black">
+                            <div
+                              className="w-full h-8  gap-8 px-4 hover:bg-[rgb(123,209,236)]/80   hover:scale-105 transition-all  duration-100 rounded-md flex items-center 
+                              
+                              text-lg font-medium"
+                            >
+                              <div className=" flex items-center justify-center w-10 h-full">
+                                <IoIosContact className="text-black text-lg  font-bold" />{" "}
+                              </div>
+                              <div className="w-28 h-full text-black text-lg  font-bold flex items-center">
+                                About
+                              </div>
+                              {/* Home */}
+                            </div>
+                          </Link>
+                          <Link to="/contact"  onClick={() => handleNavToggle(false)} className="no-underline text-black">
+                            <div
+                              className="w-full h-8  gap-8 px-4 hover:bg-[rgb(123,209,236)]/80   hover:scale-105 transition-all  duration-100 rounded-md flex items-center 
+                              
+                              text-lg font-medium"
+                            >
+                              <div className=" flex items-center justify-center w-10 h-full">
+                                <BiSupport className="text-black text-lg  font-bold" />{" "}
+                              </div>
+                              <div className="w-28 h-full text-black text-lg  font-bold flex items-center">
+                                Contact
+                              </div>
+                              {/* Home */}
+                            </div>
+                          </Link>
+                        </div>
           </div>
         </div>
       </div>

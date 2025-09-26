@@ -41,9 +41,9 @@ const Contact = () => {
   return (
     <>
       <div
-        className={` flex h-[35rem] px-2  items-center  justify-between min-h-[3.5rem]  col-span-2 row-span-1 `}
+        className={` flex-col md:flex-row w-full flex h-[35rem] px-2  items-center  justify-between min-h-[3.5rem]  col-span-2 row-span-1 `}
       >
-        <div class="w-2/5 shadow-md relative flex flex-col p-4 rounded-md text-black bg-sky-200">
+        <div class="w-full lg:w-2/5 shadow-md relative flex flex-col p-4 rounded-md text-black bg-sky-200">
           <div class="text-2xl font-bold mb-2 text-[#1e0e4b] text-center">
           Feel free to reach out <span class="text-[#7747ff]">anytime </span>
           </div>
@@ -106,7 +106,7 @@ const Contact = () => {
             </button>
           </form>
         </div>
-        <div className="w-1/2">
+        <div className="w-full lg:w-1/2 mt-4 md:mt-0 ">
           <img src="./contact1.png" className="w-full h-full"></img>
         </div>
       </div>
