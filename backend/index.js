@@ -28,7 +28,7 @@ cloudinary.config({
 // ✅ CORS setup
 app.use(
   cors({
-    origin: "http://localhost:5173" , // change to your frontend URL
+    origin: "https://portfolio-code-intelli.vercel.app", // no trailing slash
     credentials: true,
   })
 );
