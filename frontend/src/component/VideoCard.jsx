@@ -1,7 +1,7 @@
 const VideoCard = () => {
   return (
     <>
-      <div className="bg-yellow-300  relative gap-2 row-start-6 md:row-start-3 col-start-1 col-end-3 md:-col-start-1 md:-col-end-2  md:row-span-3 rounded-md sm:w-full">
+      <div className="bg-yellow-300 h-56 sm:h-[20rem] md:h-[20rem] overflow-hidden  relative gap-2 row-start-6 md:row-start-3 col-start-1 col-end-3 md:-col-start-1 md:-col-end-2  md:row-span-3 rounded-md sm:w-full">
         <video
           src="./video2.mp4"
           className="w-full  h-full bg-cover object-fill  row-span-3 relative gap-2 rounded-md"

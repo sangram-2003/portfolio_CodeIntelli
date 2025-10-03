@@ -6,7 +6,7 @@ const ReviewCard = ({ data, review }) => {
       >
         <div className="w-auto h-auto flex-col">
           <div className="flex  items-center gap-8 w-full h-14 border-b-2  ">
-            <h6 className="text-[1.5rem] font-bold">{data.title}</h6>
+            <h6 className="text-[1.2rem] sm:text-[1.5rem] md:text-[1.2rem lg:text-[1.5rem] font-bold">{data.title}</h6>
 
             <div className="h-12 w-12 rounded-md bg-white backdrop-blur-sm flex items-center justify-center border-2 border-gray-200">
               <img src={data.img}></img>
