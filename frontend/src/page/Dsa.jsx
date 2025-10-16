@@ -115,22 +115,32 @@ const Dsa = () => {
             </div>
           ))} */}
 
-          <div
-              // key={index}
+          {
+            filteredData.map((dsa, index) => (
+              <div
+               key={index}
               className="h-auto lg:min-h-16 md:h-16 w-full relative bg-sky-100 md:space-x-4 shadow-md flex items-center py-1 px-2 rounded-md"
             >
               <div className="text-md font-bold h-auto md:h-2/3 w-8 md:w-8 flex items-center">
-                2.
+               {index + 1}.
               </div>
               <div className="h-auto md:h-auto   w-10/12 md:w-10/12  lg:w-11/12 flex items-center overflow-hidden">
-                <p className="m-0 text-base font-medium">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae eius ab laudantium minus facere, velit dicta enim ea officiis aspernatur quo doloremque vitae expedita sequi temporibus consectetur nulla molestias quaerat?</p>
+                <p className="m-0 text-base font-medium">{dsa.question}</p>
               </div>
                <div className="right-0 absolute px-2">
                
+                 {dsa.type === "Hard" ? (
                   <FaAward className="text-xl text-red-600" />
+                ) : dsa.type === "Medium" ? (
+                  <FaAward className="text-xl text-yellow-700" />
+                ) : (
+                  <FaAward className="text-xl text-green-700" />
+                )}
                
               </div> 
             </div>
+            ))
+          }
         </div>
       </div>
     </>
