@@ -119,7 +119,7 @@ const Dsa = () => {
             filteredData.map((dsa, index) => (
               <div
                key={index}
-              className="h-auto lg:min-h-16 md:h-16 w-full relative bg-sky-100 md:space-x-4 shadow-md flex items-center py-1 px-2 rounded-md"
+              className="h-auto   lg:min-h-16 md:h-16 w-full relative bg-sky-100 md:space-x-4 shadow-md flex items-center py-3 px-2 rounded-md"
             >
               <div className="text-md font-bold h-auto md:h-2/3 w-8 md:w-8 flex items-center">
                {index + 1}.
